@@ -6,10 +6,17 @@ version = '.'.join(__version__)
 setup(
     name='lunatic',
     version=version,
-    packages=['tests', 'lunatic'],
+    packages=['lunatic'],
     url='https://github.com/agile4you/lunatic',
+    install_requires=[
+        'psycopg2',
+        'gevent',
+        'psycogreen',
+        'ujson',
+        'sqlalchemy'
+    ],
     license='GLPv3',
-    author='pav',
+    author='Papavassiliou Vassilis',
     author_email='vpapavasil@gmail.com',
     description='PostgreSQL Python booster utilities'
 )
