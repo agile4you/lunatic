@@ -1,0 +1,16 @@
+Cython
+decorator
+gevent
+greenlet
+psycogreen
+psycopg2
+py
+queries
+retry
+pytest
+coverage
+coveralls
+pytest-cov
+ujson
+simplejson
+sqlalchemy
