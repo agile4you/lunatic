@@ -173,7 +173,7 @@ class DBRouter(object):
     def engines(self):
         return tuple(self._engines.keys())
 
-    def proxy(self, qs, fetch_many=True):
+    def proxy_query(self, qs, fetch_many=True):
         """Execute query within an managed engine.
 
         Args:

@@ -24,25 +24,25 @@ def test_db_router_container_protocol(db_router, db_engine):
 
 
 def test_db_router_proxy_method_single_record(db_router):
-    """Unit test for `lunatic.engine.DBRouter.proxy` method for single record.
+    """Unit test for `lunatic.engine.DBRouter.proxy_query` method for single record.
     """
 
-    record = db_router.proxy('Select 2 as number;', fetch_many=False)
+    record = db_router.proxy_query('Select 2 as number;', fetch_many=False)
 
     assert record == {'number': 2}
 
 
 def test_db_router_proxy_method_multiple_record(db_router):
-    """Unit test for `lunatic.engine.DBRouter.proxy` method for multiple records.
+    """Unit test for `lunatic.engine.DBRouter.proxy_query` method for multiple records.
     """
-    record = db_router.proxy('Select x from generate_series(1, 3) x;')
+    record = db_router.proxy_query('Select x from generate_series(1, 3) x;')
 
     assert record == [{'x': 1}, {'x': 2}, {'x': 3}]
 
 
 def test_db_router_proxy_method_backend_error(db_router):
-    """Unit test for `lunatic.engine.DBRouter.proxy` method for error handling.
+    """Unit test for `lunatic.engine.DBRouter.proxy_query` method for error handling.
     """
     with pytest.raises(DBEngineError):
-        assert db_router.proxy('Select what_ever;')
+        assert db_router.proxy_query('Select what_ever;')
 
