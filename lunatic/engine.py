@@ -129,13 +129,13 @@ class DBEngine(object):
 
         return 'postgresql://{}@{}/{}'.format(user, host, database)
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return '<DBEngine instance at: 0x{:x}>'.format(id(self))
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return '<DBEngine({})>'.format(self.conn_uri)
 
-    def __call__(self, qs, fetch_many=True):
+    def __call__(self, qs, fetch_many=True):  # pragma: no cover
         return self.query(qs, fetch_many)
 
 
@@ -205,29 +205,6 @@ class DBRouter(object):
         self._engines[key] = value
         self.router = cycle(self.engines)
 
-    def __delitem__(self, key):  # pragma: no cover
+    def __delitem__(self, key):
         del self._engines[key]
         self.router = cycle(self.engines)
-
-
-if __name__ == '__main__':
-
-    db1 = DBEngine('postgresql://pav:iverson@localhost:6432/resource_db')
-    db2 = DBEngine('postgresql://pav:iverson@localhost:6432/resource_db')
-
-    DATABASES = {
-        'master': {'conn_uri': 'postgresql://pav:iverson@localhost:6432/resource_db'},
-        'slave': {'conn_uri': 'postgresql://pav:iverson@localhost:6432/resource_db_slave'}
-    }
-
-    DATABASES_ALTER = {
-        'master': {'user': 'pav', 'password': 'iverson', 'database': 'resource_db', 'host': 'localhost', 'port': 6432},
-        'slave': {'user': 'pav', 'password': 'iverson', 'database': 'resource_db_slave', 'host': 'localhost', 'port': 6432}
-    }
-
-    router = DBRouter.dict_config(**DATABASES_ALTER)
-
-    d = router.proxy("""select * from resource.records where record_data @> '{"type": "admin"}' limit 10;""")
-
-    for row in d:
-        print(row)

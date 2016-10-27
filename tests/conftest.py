@@ -10,7 +10,7 @@ from lunatic.engine import DBRouter, DBEngine
 def db_router():
     """pytest fixture for `lunatic.DBRouter` class instance.
     """
-    db_setup = {'master': {'user': 'postgres', 'database': 'travis_ci_test', 'password': ''}}
+    db_setup = {'master': {'user': 'postgres', 'database': 'travis_ci_test'}}
 
     db_router = DBRouter.dict_config(**db_setup)
 
