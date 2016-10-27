@@ -44,7 +44,7 @@ class DBEngine(object):
         DBEngineError, if any exception occurs.
     """
 
-    __slots__ = ('conn_uri', 'pool_type', '_engine', 'debug', 'gevent_enabled')
+    __slots__ = ('conn_uri', 'pool_type', '_engine', 'debug')
 
     logger = logging.getLogger(__name__)
 
@@ -53,11 +53,10 @@ class DBEngine(object):
         ('queue', QueuePool)
     )
 
-    def __init__(self, conn_uri='', pool_factory='null', debug=True, gevent_enabled=False, **conn_data):
+    def __init__(self, conn_uri='', pool_factory='null', debug=True, **conn_data):
         self.conn_uri = conn_uri if conn_uri else self.pg_uri(**conn_data)
         self.pool_type = dict(self.pool_factory).get(pool_factory, NullPool)
         self.debug = debug
-        self.gevent_enabled = gevent_enabled
         self._engine = None
 
     @property
