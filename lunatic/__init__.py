@@ -22,6 +22,8 @@ Postgresql python booster package!
 
 __all__ = ('DBEngine', 'DBEngineError', 'DBRouter', 'DBRouterError', 'pubsub', 'psycopg_patch')
 
+__version__ = (1, 0)
+
 from lunatic.patch import psycopg_patch
 from lunatic.engine import DBEngine, DBRouter, DBRouterError, DBEngineError
 import lunatic.pubsub
