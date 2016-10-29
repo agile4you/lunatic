@@ -1,5 +1,5 @@
 from distutils.core import setup
-from lunatic import  __version__
+from lunatic import __version__
 
 version = '.'.join(__version__)
 
@@ -13,7 +13,8 @@ setup(
         'gevent',
         'psycogreen',
         'ujson',
-        'sqlalchemy'
+        'sqlalchemy',
+        'snaql'
     ],
     license='GLPv3',
     author='Papavassiliou Vassilis',
