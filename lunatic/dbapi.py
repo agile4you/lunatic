@@ -122,7 +122,7 @@ class TextArg(BaseFuncArg):
     """Textual Parameters formatter/validator class.
     """
     formatter = "'{}'"
-    param_type = (six.string_types, )
+    param_type = (str, )
 
 
 class BooleanArg(BaseFuncArg):

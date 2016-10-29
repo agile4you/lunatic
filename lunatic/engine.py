@@ -13,18 +13,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.pool import NullPool, QueuePool
 from itertools import cycle
 from sqlalchemy.exc import ProgrammingError, OperationalError, DatabaseError, DataError
+from lunatic.errors import DBEngineError, DBRouterError
 
-
-class DBEngineError(Exception):
-    """Base Exception class.
-    """
-    pass
-
-
-class DBRouterError(DBEngineError):
-    """DBRouter base Error class.
-    """
-    pass
+# class DBEngineError(Exception):
+#     """Base Exception class.
+#     """
+#     pass
+#
+#
+# class DBRouterError(DBEngineError):
+#     """DBRouter base Error class.
+#     """
+#     pass
+#
 
 
 class DBEngine(object):
@@ -162,7 +163,7 @@ class DBRouter(object):
         """Initialize DBRouter from a dictionary/
 
         Args:
-            config (): A mapping of aliases / paramarer
+            config (): A mapping of aliases / DBEngine initialization parameters.
 
         Returns:
             DBRouter instance.

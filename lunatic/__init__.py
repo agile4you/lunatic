@@ -20,13 +20,16 @@
 Postgresql python booster package!
 """
 
-__all__ = ('DBEngine', 'DBEngineError', 'DBRouter', 'DBRouterError', 'pubsub', 'psycopg_patch')
+__all__ = ('DBEngine', 'DBEngineError', 'DBRouter', 'DBRouterError', 'QueryManager', 'QueryManagerError',
+           'pubsub', 'patch')
 
 __version__ = (1, 0)
 
-from lunatic.patch import psycopg_patch
-from lunatic.engine import DBEngine, DBRouter, DBRouterError, DBEngineError
+from lunatic.engine import DBEngine, DBRouter
+from lunatic.query import QueryManager
 import lunatic.pubsub
+import lunatic.patch
+from lunatic.errors import (DBRouterError, DBEngineError, LunaticError, QueryManagerError)
 import logging
 
 
