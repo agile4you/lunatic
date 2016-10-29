@@ -1,7 +1,7 @@
 from distutils.core import setup
 from lunatic import __version__
 
-version = '.'.join(__version__)
+version = __version__
 
 setup(
     name='lunatic',
