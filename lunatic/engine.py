@@ -15,18 +15,6 @@ from itertools import cycle
 from sqlalchemy.exc import ProgrammingError, OperationalError, DatabaseError, DataError
 from lunatic.errors import DBEngineError, DBRouterError
 
-# class DBEngineError(Exception):
-#     """Base Exception class.
-#     """
-#     pass
-#
-#
-# class DBRouterError(DBEngineError):
-#     """DBRouter base Error class.
-#     """
-#     pass
-#
-
 
 class DBEngine(object):
     """Postgresql database connection engine class.

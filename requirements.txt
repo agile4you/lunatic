@@ -8,3 +8,4 @@ pytest-cov
 ujson
 sqlalchemy
 snaql
+docutils

@@ -8,7 +8,7 @@ setup(
     version=version,
     packages=['lunatic'],
     url='https://github.com/agile4you/lunatic',
-    install_requires=[
+    requires=[
         'psycopg2',
         'gevent',
         'psycogreen',
