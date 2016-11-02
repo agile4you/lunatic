@@ -12,6 +12,7 @@ setup(
         'psycopg2',
         'gevent',
         'psycogreen',
+        'psycogreen',
         'ujson',
         'sqlalchemy',
         'snaql'

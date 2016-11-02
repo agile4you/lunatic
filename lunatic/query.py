@@ -46,7 +46,9 @@ class QueryManager(object):
 
     @property
     def proxy_rule(self):
-        return [method for method in dir(self.builder) if not method.startswith('_')]
+        return [method for method in dir(self.builder)
+                if not method.startswith('_')
+                and hasattr(getattr(self.builder, method), 'func_name')]
 
     def mount(self):
         """Mount snaql queries instance.
@@ -78,17 +80,3 @@ class QueryManager(object):
 
         return self
 
-
-if __name__ == '__main__':
-
-    import os.path as path
-    from lunatic.engine import DBEngine
-
-    db_engine = DBEngine(user='postgres', database='travis_ci_test_1')
-
-    query_manager = QueryManager(engine=db_engine)
-
-    query_manager.load(path.abspath(path.dirname(__file__)), 'sql', 'test.sql')
-
-    print(query_manager.retrieve_user(uid=23453, fetch_many=False))
-    print(query_manager.__class__.__name__)
