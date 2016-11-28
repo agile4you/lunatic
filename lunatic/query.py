@@ -4,9 +4,14 @@
 Provides a query interface for interacting with `lunatic.engine.DBEngine`
 objects.
 """
+
+__all__ = ('QueryManager', )
+
 import logging
 from lunatic.errors import DBEngineError, DBRouterError, QueryManagerError
 from snaql.factory import Snaql, SnaqlException
+from snaql.convertors import SnaqlGuardException
+from jinja2.exceptions import TemplateNotFound
 from functools import wraps
 
 
@@ -37,8 +42,8 @@ class QueryManager(object):
         """
         try:
             self.builder = Snaql(query_parent, query_dir).load_queries(query_file)
-        except SnaqlException as error:
-            raise QueryManagerError(error.args[0])
+        except (SnaqlException, TemplateNotFound) as error:
+            raise QueryManagerError(error.args)
 
         self.mount()
 
@@ -67,7 +72,7 @@ class QueryManager(object):
                         self.logger.info('Execute: {}'.format(queryset))
                     records = self.engine.query(queryset, fetch_many)
 
-                except (SnaqlException, DBRouterError, DBEngineError) as error:
+                except (SnaqlException, SnaqlGuardException, DBRouterError, DBEngineError) as error:
                     self.logger.error(error.args[0])
                     raise QueryManagerError(error.args[0])
 

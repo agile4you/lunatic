@@ -27,3 +27,14 @@ class DBRouterError(DBEngineError):
     """DBRouter Error.
     """
     pass
+
+
+class DBAPIError(LunaticError):
+    """DBAPI Error.
+    """
+
+
+class InvalidFunctionParamError(DBAPIError):
+    """Raises when invalid type parameter is passed to Postgresql Function.
+    """
+    pass

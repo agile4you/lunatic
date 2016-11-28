@@ -15,7 +15,6 @@ __all__ = ['DBAPIBackend', 'FunctionField', 'ViewField', 'DBAPIError', 'UnknownP
 # Try to find the best candidate for JSON serialization.
 # Import order indicates serialization efficiency.
 
-
 try:
     import ujson as json
 except ImportError:
@@ -25,16 +24,7 @@ except ImportError:
         import json
 
 
-class DBAPIError(Exception):
-    """Base module exception
-    """
-    pass
-
-
-class InvalidFunctionParamError(DBAPIError):
-    """Raises when invalid type parameter is passed to Postgresql Function.
-    """
-    pass
+from lunatic.errors import DBAPIError, InvalidFunctionParamError
 
 
 class BaseFuncArg(object):

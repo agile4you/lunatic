@@ -162,7 +162,7 @@ class DBRouter(object):
     def engines(self):
         return tuple(self._engines.keys())
 
-    def proxy_query(self, qs, fetch_many=True):
+    def query(self, qs, fetch_many=True):
         """Execute query within an managed engine.
 
         Args:
@@ -180,6 +180,9 @@ class DBRouter(object):
         if self.debug:  # pragma: no cover
             self.logger.info('Routing query to: {}'.format(db_route))
             return self._engines.get(db_route).query(qs, fetch_many)
+
+    def __call__(self, qs, fetch_many=True):
+        return self.proxy_query(qs, fetch_many)
 
     def __getitem__(self, item):
         return self._engines[item]
