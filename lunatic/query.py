@@ -72,7 +72,7 @@ class QueryManager(object):
                         self.logger.info('Execute: {}'.format(queryset))
                     records = self.engine.query(queryset, fetch_many)
 
-                except (SnaqlException, SnaqlGuardException, DBRouterError, DBEngineError) as error:
+                except (SnaqlException, TypeError,SnaqlGuardException, DBRouterError, DBEngineError) as error:
                     self.logger.error(error.args[0])
                     raise QueryManagerError(error.args[0])
 
