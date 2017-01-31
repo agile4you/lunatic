@@ -21,14 +21,13 @@ Postgresql python booster package!
 """
 
 __all__ = ('DBEngine', 'DBEngineError', 'DBRouter', 'DBRouterError', 'QueryManager', 'QueryManagerError',
-           'pubsub', 'patch')
+           'pubsub', )
 
-__version__ = '1.1.6'
+__version__ = '1.1.7'
 
 from lunatic.engine import DBEngine, DBRouter
 from lunatic.query import QueryManager
 import lunatic.pubsub
-import lunatic.patch
 from lunatic.errors import (DBRouterError, DBEngineError, LunaticError, QueryManagerError)
 import logging
 
