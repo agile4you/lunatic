@@ -8,6 +8,7 @@ objects.
 __all__ = ('QueryManager', )
 
 import logging
+from lunatic.engine import DBRouter
 from lunatic.errors import DBEngineError, DBRouterError, QueryManagerError
 from snaql.factory import Snaql, SnaqlException
 from snaql.convertors import SnaqlGuardException
@@ -65,14 +66,19 @@ class QueryManager(object):
                 """Inner wrapper for proxy methods.
                 """
                 fetch_many = kwargs.pop('fetch_many', True)
+                alias = kwargs.pop('alias', None)
 
                 try:
                     queryset = func(*args, **kwargs)
                     if self.debug:
                         self.logger.info('Execute: {}'.format(queryset))
-                    records = self.engine.query(queryset, fetch_many)
 
-                except (SnaqlException, TypeError,SnaqlGuardException, DBRouterError, DBEngineError) as error:
+                    if isinstance(self.engine, DBRouter):
+                        records = self.engine.query(queryset, fetch_many, alias)
+                    else:
+                        records = self.engine.query(queryset, fetch_many)
+
+                except (SnaqlException, TypeError, SnaqlGuardException, DBRouterError, DBEngineError) as error:
                     self.logger.error(error.args[0])
                     raise QueryManagerError(error.args[0])
 

@@ -162,12 +162,13 @@ class DBRouter(object):
     def engines(self):
         return tuple(self._engines.keys())
 
-    def query(self, qs, fetch_many=True):
+    def query(self, qs, fetch_many=True, alias=None):
         """Execute query within an managed engine.
 
         Args:
             qs (str): Plain text query.
-            fetch_many (boolean)
+            fetch_many (boolean): Indicates if query must return multiple rows.
+            alias (str): Choose directly the db server.
         Returns:
             Query Records or None.
 
@@ -175,11 +176,15 @@ class DBRouter(object):
             DBEngineError, if a connection / data Error occurs.
         """
 
+        if alias:
+            return self._engines.get(alias).query(qs, fetch_many)
+
         db_route = next(self.router)
 
         if self.debug:  # pragma: no cover
             self.logger.info('Routing query to: {}'.format(db_route))
-            return self._engines.get(db_route).query(qs, fetch_many)
+
+        return self._engines.get(db_route).query(qs, fetch_many)
 
     def __call__(self, qs, fetch_many=True):
         return self.proxy_query(qs, fetch_many)

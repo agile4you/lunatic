@@ -1,17 +1,24 @@
 from distutils.core import setup
-from lunatic import __version__
+import re
+import ast
 
-version = __version__
+
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('lunatic/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')
+    ).group(1)))
+
 
 setup(
     name='lunatic',
     version=version,
     packages=['lunatic'],
     url='https://github.com/agile4you/lunatic',
-    requires=[
+    install_requires=[
         'psycopg2',
         'gevent',
-        'psycogreen',
         'psycogreen',
         'ujson',
         'sqlalchemy',
